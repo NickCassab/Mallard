@@ -91,9 +91,9 @@ namespace Airtable
         }
 
         //
-        public string baseID = ""; //appO6wop75JF89Phe
-        public string appKey = "";  //keyjNDU2X6XRFOsxc
-        public string tablename = null;  // People
+        public string baseID = ""; 
+        public string appKey = "";  
+        public string tablename = null;  
         public Fields fields = new Fields();
         public bool conversion = false;
         public List<AirtableAttachment> attachmentList = new List<AirtableAttachment>();

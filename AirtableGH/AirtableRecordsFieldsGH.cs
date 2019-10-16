@@ -8,13 +8,13 @@ using AirtableApiClient;
 
 namespace Airtable
 {
-    public class AirtableRecordsFieldsGH : GH_Component
+    public class AirtableRecordFieldsGH : GH_Component
     {
 
 
 
 
-        public AirtableRecordsFieldsGH() : base("Record Fields", "Get the Field Values" +
+        public AirtableRecordFieldsGH() : base("Record Fields", "Get the Field Values" +
             "from a list of Airtable Records for the Supplied Field Name", 
             "Retrieve a list of Fields of given Airtable Records", "Data", "Database")
         {
@@ -102,10 +102,10 @@ namespace Airtable
         }
 
         //
-        public string baseID = ""; //appO6wop75JF89Phe
-        public string appKey = "";  //keyjNDU2X6XRFOsxc
-        public string tablename = "";  // People
-        public string stringID = ""; //recP7smvd1JHZeZam
+        public string baseID = ""; 
+        public string appKey = "";  
+        public string tablename = "";  
+        public string stringID = ""; 
         public string errorMessageString = "No Field found, doublecheck fieldname and try again";
         public string fieldName = "Name";
 

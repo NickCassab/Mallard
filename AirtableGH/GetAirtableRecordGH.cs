@@ -100,10 +100,10 @@ namespace Airtable
         }
 
         //
-        public string baseID = ""; //appO6wop75JF89Phe
-        public string appKey = "";  //keyjNDU2X6XRFOsxc
-        public string tablename = "";  // People
-        public List<String> stringIDs = new List<string>(); //recP7smvd1JHZeZam
+        public string baseID = "";
+        public string appKey = ""; 
+        public string tablename = ""; 
+        public List<String> stringIDs = new List<string>(); 
         public string errorMessage = "no error";
         public string attachmentFieldName = "Name";
         public List<AirtableRecord> outRecords = new List<AirtableRecord>();

@@ -10,7 +10,7 @@ namespace Airtable
         {
             get
             {
-                return "Airtable";
+                return "AirtableGH";
             }
         }
         public override Bitmap Icon

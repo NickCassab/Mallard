@@ -95,10 +95,10 @@ namespace Airtable
         }
 
         //
-        public string baseID = ""; //appO6wop75JF89Phe  // remove app name and app key
-        public string appKey = "";  //keyjNDU2X6XRFOsxc  // remove app name and app key
-        public string tablename = "";  // // remove app name and app key
-        public string stringID = ""; //// remove app name and app key
+        public string baseID = "";   
+        public string appKey = "";  
+        public string tablename = ""; 
+        public string stringID = ""; 
         public string errorMessageString = "no response yet, refresh to try again";
         public string attachmentFieldName = "Name";
         public List<Object> records = new List<object>();
