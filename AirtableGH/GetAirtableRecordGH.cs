@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Grasshopper.Kernel;
 using AirtableApiClient;
 
-namespace Airtable
+namespace AirtableGH
 {
     public class GetAirtableRecordGH : GH_Component
     {
@@ -156,12 +156,12 @@ namespace Airtable
             return response;
         }
 
-        
 
 
 
 
 
+        protected override System.Drawing.Bitmap Icon => Properties.Resources.AirtableGet2;
 
 
 

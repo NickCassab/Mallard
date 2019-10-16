@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Grasshopper.Kernel;
 using AirtableApiClient;
 
-namespace Airtable
+namespace AirtableGH
 {
     public class DeleteAirtableRecordGH : GH_Component
     {
@@ -151,7 +151,9 @@ namespace Airtable
 
             return true;
         }
-        
+
+        protected override System.Drawing.Bitmap Icon => Properties.Resources.AirtableDelete2;
+
     }
 }
 

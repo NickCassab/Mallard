@@ -2,7 +2,7 @@
 using System.Drawing;
 using Grasshopper.Kernel;
 
-namespace Airtable
+namespace AirtableGH
 {
     public class AirtableInfo : GH_AssemblyInfo
     {
@@ -10,7 +10,7 @@ namespace Airtable
         {
             get
             {
-                return "AirtableGH";
+                return "Duck";
             }
         }
         public override Bitmap Icon
@@ -18,7 +18,7 @@ namespace Airtable
             get
             {
                 //Return a 24x24 pixel bitmap to represent this GHA library.
-                return null;
+                return Properties.Resources.AirtablePluginIcon2;
             }
         }
         public override string Description
@@ -45,7 +45,7 @@ namespace Airtable
             get
             {
                 //Return a string identifying you or your company.
-                return "";
+                return "Nicholas Cassab-Gheta";
             }
         }
         public override string AuthorContact
@@ -53,7 +53,7 @@ namespace Airtable
             get
             {
                 //Return a string representing your preferred contact details.
-                return "";
+                return "nickcassab.com";
             }
         }
     }

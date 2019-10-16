@@ -66,12 +66,50 @@
     <Compile Include="AirtableInfo.cs" />
     <Compile Include="AirtableRecordsFieldsGH.cs" />
     <Compile Include="DeleteAirtableRecordGH.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="ReplaceAirtableRecordGH.cs" />
     <Compile Include="UpdateAirtableRecordGH.cs" />
     <Compile Include="CreateAirtableRecordGH.cs" />
     <Compile Include="ListAirtableRecordsGH.cs" />
     <Compile Include="GetAirtableRecordGH.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AirtablePluginIcon2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AirtablePluginIcon.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AirtableDelete2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AirtableFields2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AirtableCreate2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AirtableList2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AirtableGet2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AirtableUpdate2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AirtableReplace2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
