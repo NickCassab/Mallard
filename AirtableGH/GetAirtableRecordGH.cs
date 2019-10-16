@@ -13,7 +13,7 @@ namespace Airtable
                      
         public GetAirtableRecordGH() : base("Get Airtable Record", "Get", 
             "This is a Get component that retrieves a specific Airtable Record from a specific Base" +
-            "and a specific Table", "Data", "Database")
+            "and a specific Table", "Duck", "Database")
         {
 
         }

@@ -12,7 +12,7 @@ namespace Airtable
     {
 
         public ReplaceAirtableRecordGH() : base("Replace Airtable Record", "Replace",
-            "Replace a record with a specific ID in a specific table using provided information", "Data", "Database")
+            "Replace a record with a specific ID in a specific table using provided information", "Duck", "Database")
         {
 
         }

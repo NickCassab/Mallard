@@ -12,7 +12,7 @@ namespace Airtable
     {
 
         public UpdateAirtableRecordGH() : base("Update Airtable Record", "Update",
-            "Update an Airtable Record in a specified table in a specific base", "Data", "Database")
+            "Update an Airtable Record in a specified table in a specific base", "Duck", "Database")
         {
 
         }

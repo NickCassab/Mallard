@@ -16,7 +16,7 @@ namespace Airtable
 
         public AirtableRecordFieldsGH() : base("Airtable Record Fields", "Get the Field Values" +
             "from a list of Airtable Records for the Supplied Field Name", 
-            "Retrieve a list of Fields of given Airtable Records", "Data", "Database")
+            "Retrieve a list of Fields of given Airtable Records", "Duck", "Database")
         {
 
         }

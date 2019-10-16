@@ -13,7 +13,7 @@ namespace Airtable
                      
         public DeleteAirtableRecordGH() : base("Delete Airtable Record", "Delete",
             "This is a Delete component that Deletes a record with a specific ID in a specific table",
-            "Data", "Database")
+            "Duck", "Database")
         {
 
         }

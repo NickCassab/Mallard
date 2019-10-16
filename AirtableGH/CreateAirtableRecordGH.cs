@@ -12,7 +12,7 @@ namespace Airtable
     {
 
         public CreateAirtableRecordGH() : base("Create Airtable Record", "Create", 
-            "Create an Airtable Record in a specified table in a specific base", "Data", "Database")
+            "Create an Airtable Record in a specified table in a specific base", "Duck", "Database")
         {
 
         }

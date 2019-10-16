@@ -26,7 +26,10 @@ namespace Airtable
             get
             {
                 //Return a short string describing the purpose of this GHA library.
-                return "";
+                return "This library was written to allow Grasshopper to connect to the easily editable" +
+                    "Database website called Airtable. Use Airtable to create a spreadsheet style database" +
+                    "and interact with it using the components below. https://airtable.com/" +
+                    "This plug-in is open-source and licensed under the MIT License https://github.com/cassab/AirtableGH ";
             }
         }
         public override Guid Id
