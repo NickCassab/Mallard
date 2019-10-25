@@ -83,8 +83,6 @@ namespace AirtableGH
             DA.SetData(2, OutRecord);
             fieldList.Clear();
             fields.FieldsCollection.Clear();
-
-
         }
 
         //
@@ -117,6 +115,8 @@ namespace AirtableGH
 
             Task<AirtableCreateUpdateReplaceRecordResponse> task = airtableBase.CreateRecord(tablename, fields, conversion);
             var response = await task;
+
+            response.AirtableApiError.DetailedErrorMessage;
 
             OutRecord = response.Record;
 

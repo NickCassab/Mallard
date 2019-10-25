@@ -37,7 +37,7 @@ namespace AirtableGH
 
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddTextParameter("Reverse", "R", "Reversed string", GH_ParamAccess.item);
+            
             pManager.AddTextParameter("errorMessage", "E", "ErrorMessage string", GH_ParamAccess.item);
             pManager.AddGenericParameter("outRecords", "O", "OutRecord Result string", GH_ParamAccess.list);
         }
@@ -46,10 +46,6 @@ namespace AirtableGH
         {
             // Declare a variable for the input String
             bool data = false;
-            //string baseID = null;
-            //string appKey = null;
-            //string tablename = null;
-            //string stringID = null;
 
             // Use the DA object to retrieve the data inside the first input parameter.
             // If the retieval fails (for example if there is no data) we need to abort.
@@ -66,16 +62,8 @@ namespace AirtableGH
                 fieldsList.Clear();
                 records.Clear();
                 return; }
-            //if (data.Length == 0) { return; }
 
-            // Convert the String to a character array.
-            //char[] chars = data.ToCharArray();
-
-            // Reverse the array of character.
-            //System.Array.Reverse(chars);
-
-            //
-
+            //Populate fieldlist with field information from records list
             foreach (AirtableRecord item in records)
             {
                 if (item != null)
@@ -85,44 +73,29 @@ namespace AirtableGH
                 
             }
 
+            //if the fieldlist is not zero, return success in error message slot
             if(fieldsList.Count != 0)
             {
                 errorMessageString = "Success!";
             }
 
-
-            //
-
             // Use the DA object to assign a new String to the first output parameter.
-            DA.SetData(0, "Ran");
-            DA.SetData(1, errorMessageString);
-            DA.SetDataList(2, fieldsList);
+            DA.SetData(0, errorMessageString);
+            DA.SetDataList(1, fieldsList);
+
+            //clear stored local values
             fieldsList.Clear();
             records.Clear();
         }
 
-        //
-        public string baseID = ""; 
-        public string appKey = "";  
-        public string tablename = "";  
-        public string stringID = ""; 
-        public string errorMessageString = "No Field found, doublecheck fieldname and try again";
-        public string fieldName = "Name";
+        // initial variables
+        public string errorMessageString = "No Field of that name found, doublecheck fieldname and try again";
+        public string fieldName = "Name";  // we start with a default fieldname just incase
 
         public List<Object> fieldsList = new List<object>();
         public List<AirtableRecord> records = new List<AirtableRecord>();
 
-        public string offset = null;
-        public IEnumerable<string> fieldsArray = null;
-        public string filterByFormula = null;
-        public int? maxRecords = null;
-        public int? pageSize = null;
-        public IEnumerable<Sort> sort = null;
-        public string view = "Main View";
-        public int b = 1;
-        public AirtableListRecordsResponse response;
-        //
-
+        //Logo for Component
         protected override System.Drawing.Bitmap Icon => Properties.Resources.AirtableFields2;
     }
 }
