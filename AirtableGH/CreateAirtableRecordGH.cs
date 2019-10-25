@@ -116,7 +116,6 @@ namespace AirtableGH
             Task<AirtableCreateUpdateReplaceRecordResponse> task = airtableBase.CreateRecord(tablename, fields, conversion);
             var response = await task;
 
-            response.AirtableApiError.DetailedErrorMessage;
 
             OutRecord = response.Record;
 
