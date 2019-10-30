@@ -30,12 +30,13 @@ namespace AirtableGH
             pManager.AddTextParameter("BaseID", "I", "ID of Airtable Base", GH_ParamAccess.item);
             pManager.AddTextParameter("AppKey", "K", "Appkey for Airtable Base", GH_ParamAccess.item);
             pManager.AddTextParameter("TableName", "N", "Name of Table in Airtable Base", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Fields", "F", "Fields of new airtable record", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Field Names", "FN", "Field Names of new airtable records", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Fields", "F", "Fields of new airtable records", GH_ParamAccess.list);
         }
 
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddTextParameter("Reverse", "R", "Reversed string", GH_ParamAccess.item);
+            
             pManager.AddTextParameter("errorMessage", "E", "ErrorMessage string", GH_ParamAccess.item);
             pManager.AddGenericParameter("outRecord", "O", "OutRecord Result string", GH_ParamAccess.item);
         }
@@ -44,6 +45,7 @@ namespace AirtableGH
         {
             // Declare a variable for the input String
             bool data = false;
+            fieldNameList.Clear();
 
             // Use the DA object to retrieve the data inside the first input parameter.
             // If the retieval fails (for example if there is no data) we need to abort.
@@ -52,7 +54,8 @@ namespace AirtableGH
             if (!DA.GetData(1, ref baseID)) { return; }
             if (!DA.GetData(2, ref appKey)) { return; }
             if (!DA.GetData(3, ref tablename)) { return; }
-            if (!DA.GetDataList(4, fieldList)) { return; }
+            if (!DA.GetDataList(4, fieldNameList)) { return; }
+            if (!DA.GetDataList(5, fieldList)) { return; }
 
             // If the retrieved data is Nothing, we need to abort.
             // We're also going to abort on a zero-length String.
@@ -65,24 +68,48 @@ namespace AirtableGH
 
             if (!fields.FieldsCollection.Any())
             {
-                fields.AddField("Name", fieldList[0]);
+                int i = 0;
+                foreach (var fieldval in fieldList)
+                {
+                    bool a = false;
+                    if(fieldval is Grasshopper.Kernel.Types.GH_String)
+                    {
+                        a = true;
+                    } else if (fieldval is Grasshopper.Kernel.Types.GH_ObjectWrapper)
+                    {
+                        Object helper = new Object();
+                        Grasshopper.Kernel.Types.GH_ObjectWrapper gH_ObjectWrapper = fieldval as Grasshopper.Kernel.Types.GH_ObjectWrapper;
+                        gH_ObjectWrapper.CastTo<Object>(out helper);
+
+
+                        a = false;
+                    }
+
+
+                    i++;
+                }
+                
             }
 
 
             Task OutResponse = CreateRecordMethodAsync(airtableBase);
             var responseString = OutResponse.ToString();
             if (response != null) {
-                records.AddRange(response.Records.ToList());
-                errorMessageString = "success!";
+                if (response.Success)
+                {
+                    records.AddRange(response.Records.ToList());
+                    errorMessageString = "success!";
+                }
             }
             //
 
             // Use the DA object to assign a new String to the first output parameter.
-            DA.SetData(0, "Ran");
-            DA.SetData(1, errorMessageString);
-            DA.SetData(2, OutRecord);
+
+            DA.SetData(0, errorMessageString);
+            DA.SetData(1, OutRecord);
             fieldList.Clear();
             fields.FieldsCollection.Clear();
+            fieldNameList.Clear();
         }
 
         //
@@ -93,10 +120,12 @@ namespace AirtableGH
         public bool conversion = false;
         public List<AirtableAttachment> attachmentList = new List<AirtableAttachment>();
         public AirtableRecord OutRecord = null;
-        public List<String> fieldList = new List<string>();
+        public List<Object> fieldList = new List<Object>();
+        public List<String> fieldNameList = new List<string>();
 
         public string errorMessageString = "no response yet, refresh to try again";
         public string attachmentFieldName = "Name";
+        public string FieldName = "Name";
         public List<Object> records = new List<object>();
         public string offset = null;
         public IEnumerable<string> fieldsArray = null;
