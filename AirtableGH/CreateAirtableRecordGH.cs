@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Grasshopper.Kernel;
 using AirtableApiClient;
+using Grasshopper.Kernel.Types;
 
 namespace AirtableGH
 {
@@ -46,6 +47,7 @@ namespace AirtableGH
             // Declare a variable for the input String
             bool data = false;
             fieldNameList.Clear();
+            fieldList.Clear();
 
             // Use the DA object to retrieve the data inside the first input parameter.
             // If the retieval fails (for example if there is no data) we need to abort.
@@ -75,12 +77,19 @@ namespace AirtableGH
                     if(fieldval is Grasshopper.Kernel.Types.GH_String)
                     {
                         a = true;
-                    } else if (fieldval is Grasshopper.Kernel.Types.GH_ObjectWrapper)
-                    {
-                        Object helper = new Object();
-                        Grasshopper.Kernel.Types.GH_ObjectWrapper gH_ObjectWrapper = fieldval as Grasshopper.Kernel.Types.GH_ObjectWrapper;
-                        gH_ObjectWrapper.CastTo<Object>(out helper);
+                        fields.AddField(fieldNameList[i], fieldval.ToString());
 
+                    } else if (fieldval is GH_ObjectWrapper)
+                    {
+                        GH_ObjectWrapper wrapper = (GH_ObjectWrapper)fieldval;
+                        AirtableRecord record = (AirtableRecord)wrapper.Value;
+
+                        string recID = record.Id;
+
+                        string[] recIDs = new string[1];
+                        recIDs[0] = recID;
+
+                        fields.AddField(fieldNameList[i], recIDs);
 
                         a = false;
                     }
@@ -152,7 +161,8 @@ namespace AirtableGH
             if (response.AirtableApiError.ErrorMessage != null)
             {
                 // Error reporting
-                errorMessageString = response.AirtableApiError.ErrorMessage;
+                errorMessageString = response.AirtableApiError.DetailedErrorMessage2;
+                
             }
             else
             {
