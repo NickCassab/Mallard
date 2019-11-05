@@ -113,11 +113,8 @@ namespace AirtableGH
                 errorMessageString = "Success!";
 
             }
-            //
-
 
             // Use the DA object to assign a new String to the first output parameter.
-
             DA.SetData(0, errorMessageString);
             DA.SetData(1, OutRecord);
             fieldList.Clear();

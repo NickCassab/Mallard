@@ -30,7 +30,6 @@ namespace AirtableGH
             pManager.AddTextParameter("Base ID", "ID", "ID of Airtable Base", GH_ParamAccess.item);
             pManager.AddTextParameter("App Key", "K", "App Key for Airtable Base", GH_ParamAccess.item);
             pManager.AddTextParameter("Table Name", "T", "Name of table in Airtable Base", GH_ParamAccess.item);
-            //pManager.AddTextParameter("RecordID", "R", "ID of Record to retrieve", GH_ParamAccess.item);
         }
 
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
@@ -43,10 +42,6 @@ namespace AirtableGH
         {
             // Declare a variable for the input String
             bool data = false;
-            //string baseID = null;
-            //string appKey = null;
-            //string tablename = null;
-            //string stringID = null;
 
             // Use the DA object to retrieve the data inside the first input parameter.
             // If the retieval fails (for example if there is no data) we need to abort.
@@ -56,7 +51,6 @@ namespace AirtableGH
             if (!DA.GetData(1, ref baseID)) { return; }
             if (!DA.GetData(2, ref appKey)) { return; }
             if (!DA.GetData(3, ref tablename)) { return; }
-            //if (!DA.GetData(4, ref stringID)) { return; }
 
             // If the retrieved data is Nothing, we need to abort.
             // We're also going to abort on a zero-length String.
@@ -64,15 +58,8 @@ namespace AirtableGH
                 records.Clear();
                 return;
             }
-            //if (data.Length == 0) { return; }
 
-            // Convert the String to a character array.
-            //char[] chars = data.ToCharArray();
 
-            // Reverse the array of character.
-            //System.Array.Reverse(chars);
-
-            //
 
             AirtableBase airtableBase = new AirtableBase(appKey, baseID);
             Task OutResponse = ListRecordsMethodAsync(airtableBase);
@@ -83,7 +70,7 @@ namespace AirtableGH
                     errorMessageString = "Success!";
                 }           
             }
-            //
+
 
             // Use the DA object to assign a new String to the first output parameter.
             DA.SetData(0, errorMessageString);

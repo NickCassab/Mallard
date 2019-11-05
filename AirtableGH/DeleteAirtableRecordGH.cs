@@ -45,10 +45,6 @@ namespace AirtableGH
             // Declare a variable for the input String
             bool data = false;
             stringIDs.Clear();
-            //string baseID = null;
-            //string appKey = null;
-            //string tablename = null;
-            //string stringID = null;
 
             // Use the DA object to retrieve the data inside the first input parameter.
             // If the retieval fails (for example if there is no data) we need to abort.
@@ -62,7 +58,6 @@ namespace AirtableGH
             // We're also going to abort on a zero-length String.
             if (data == false) {
                 airtableRecordsIN.Clear();
-                //outRecords.Clear();
                 return; }
 
             if (airtableRecordsIN.Any())
@@ -82,9 +77,6 @@ namespace AirtableGH
             List<String> strings = new List<string>();
             int d = 0;
             //
-
-
-            strings.Add("hello");
 
             while(!airtableRecordsIN.Any())
             {
@@ -142,9 +134,7 @@ namespace AirtableGH
                 }
 
             }
-
             return true;
-
         }
 
         protected override System.Drawing.Bitmap Icon => Properties.Resources.AirtableDelete2;

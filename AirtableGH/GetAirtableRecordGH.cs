@@ -44,10 +44,6 @@ namespace AirtableGH
         {
             // Declare a variable for the input String
             bool data = false;
-            //string baseID = null;
-            //string appKey = null;
-            //string tablename = null;
-            //string stringID = null;
 
             // Use the DA object to retrieve the data inside the first input parameter.
             // If the retieval fails (for example if there is no data) we need to abort.
@@ -61,7 +57,6 @@ namespace AirtableGH
             // We're also going to abort on a zero-length String.
             if (data == false) {
                 stringIDs.Clear();
-                //outRecords.Clear();
                 return; }
 
             //
@@ -69,9 +64,6 @@ namespace AirtableGH
             List<String> strings = new List<string>();
             int d = 0;
             //
-
-
-            strings.Add("hello");
 
             while(!outRecords.Any())
             {
@@ -91,10 +83,6 @@ namespace AirtableGH
             DA.SetDataList(1, outRecords);
             outRecords.Clear();
 
-
-
-
-
         }
 
         //
@@ -106,7 +94,6 @@ namespace AirtableGH
         public string attachmentFieldName = "Name";
         public List<AirtableRecord> outRecords = new List<AirtableRecord>();
         public AirtableRecord outRecord;
-        //public string stringID;
         public AirtableRetrieveRecordResponse response;
         //
 
@@ -128,27 +115,10 @@ namespace AirtableGH
                 {
                     outRecords.Add(null);
                     errorMessage = response.AirtableApiError.DetailedErrorMessage2;
-                }
-
+                }           
             }
-            //foreach (var task in await Task.WhenAll(tasks))
-            //{
-            //    if (task.Success)
-            //    {
-            //        outRecords.Add(task.Record);
-            //    }
-            //    else
-            //    {
-            //        outRecords.Add(null);
-            //    }
-
-            //}
-
-
             return true;
         }
-
-
 
         public async Task<AirtableRetrieveRecordResponse> GetRecordMethodAsync(AirtableBase airtableBase, String stringIDparam)
         {
@@ -157,16 +127,8 @@ namespace AirtableGH
             return response;
         }
 
-
-
-
-
-
         protected override System.Drawing.Bitmap Icon => Properties.Resources.AirtableGet2;
-
-
-
-
+                       
     }
 }
 
