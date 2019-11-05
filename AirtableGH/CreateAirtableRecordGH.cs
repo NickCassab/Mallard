@@ -12,7 +12,7 @@ namespace AirtableGH
     public class CreateAirtableRecordGH : GH_Component
     {
 
-        public CreateAirtableRecordGH() : base("Create Airtable Record", "Create", 
+        public CreateAirtableRecordGH() : base("Create Airtable Record", "Create",
             "Create an Airtable Record in a specified table in a specific base", "Duck", "Database")
         {
 
@@ -27,19 +27,19 @@ namespace AirtableGH
 
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddBooleanParameter("Refresh?", "S", "Boolean Button to Refresh Solution", GH_ParamAccess.item);
-            pManager.AddTextParameter("BaseID", "I", "ID of Airtable Base", GH_ParamAccess.item);
-            pManager.AddTextParameter("AppKey", "K", "Appkey for Airtable Base", GH_ParamAccess.item);
-            pManager.AddTextParameter("TableName", "N", "Name of Table in Airtable Base", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Field Names", "FN", "Field Names of new airtable records", GH_ParamAccess.list);
-            pManager.AddGenericParameter("Fields", "F", "Fields of new airtable records", GH_ParamAccess.list);
+            pManager.AddBooleanParameter("Refresh?", "B", "Boolean button to refresh solution", GH_ParamAccess.item);
+            pManager.AddTextParameter("Base ID", "ID", "ID of Airtable Base", GH_ParamAccess.item);
+            pManager.AddTextParameter("App Key", "K", "App Key for Airtable Base", GH_ParamAccess.item);
+            pManager.AddTextParameter("Table Name", "T", "Name of table in Airtable Base", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Field Names", "FN", "Field Names of new Airtable Records", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Fields", "F", "Fields of new Airtable Records", GH_ParamAccess.list);
         }
 
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            
-            pManager.AddTextParameter("errorMessage", "E", "ErrorMessage string", GH_ParamAccess.item);
-            pManager.AddGenericParameter("outRecord", "O", "OutRecord Result string", GH_ParamAccess.item);
+
+            pManager.AddTextParameter("Error Message", "E", "Error Message string", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Out Record", "O", "Out Record Result string", GH_ParamAccess.item);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -51,8 +51,10 @@ namespace AirtableGH
 
             // Use the DA object to retrieve the data inside the first input parameter.
             // If the retieval fails (for example if there is no data) we need to abort.
-            if (!DA.GetData(0, ref data)) {
-                return; }
+            if (!DA.GetData(0, ref data))
+            {
+                return;
+            }
             if (!DA.GetData(1, ref baseID)) { return; }
             if (!DA.GetData(2, ref appKey)) { return; }
             if (!DA.GetData(3, ref tablename)) { return; }
@@ -61,7 +63,8 @@ namespace AirtableGH
 
             // If the retrieved data is Nothing, we need to abort.
             // We're also going to abort on a zero-length String.
-            if (data == false) {
+            if (data == false)
+            {
                 return;
             }
 
@@ -74,12 +77,13 @@ namespace AirtableGH
                 foreach (var fieldval in fieldList)
                 {
                     bool a = false;
-                    if(fieldval is Grasshopper.Kernel.Types.GH_String)
+                    if (fieldval is Grasshopper.Kernel.Types.GH_String)
                     {
                         a = true;
                         fields.AddField(fieldNameList[i], fieldval.ToString());
 
-                    } else if (fieldval is GH_ObjectWrapper)
+                    }
+                    else if (fieldval is GH_ObjectWrapper)
                     {
                         GH_ObjectWrapper wrapper = (GH_ObjectWrapper)fieldval;
                         AirtableRecord record = (AirtableRecord)wrapper.Value;
@@ -97,20 +101,20 @@ namespace AirtableGH
 
                     i++;
                 }
-                
+
             }
 
 
             Task OutResponse = CreateRecordMethodAsync(airtableBase);
-            var responseString = OutResponse.ToString();
-            if (response != null) {
-                if (response.Success)
-                {
-                    records.AddRange(response.Records.ToList());
-                    errorMessageString = "success!";
-                }
+            var responseTest = OutResponse;
+            if (OutRecord != null)
+            {
+
+                errorMessageString = "Success!";
+
             }
             //
+
 
             // Use the DA object to assign a new String to the first output parameter.
 
@@ -122,9 +126,9 @@ namespace AirtableGH
         }
 
         //
-        public string baseID = ""; 
-        public string appKey = "";  
-        public string tablename = "People";  
+        public string baseID = "";
+        public string appKey = "";
+        public string tablename = "People";
         public Fields fields = new Fields();
         public bool conversion = false;
         public List<AirtableAttachment> attachmentList = new List<AirtableAttachment>();
@@ -132,7 +136,7 @@ namespace AirtableGH
         public List<Object> fieldList = new List<Object>();
         public List<String> fieldNameList = new List<string>();
 
-        public string errorMessageString = "no response yet, refresh to try again";
+        public string errorMessageString = "No response yet, refresh to try again";
         public string attachmentFieldName = "Name";
         public string FieldName = "Name";
         public List<Object> records = new List<object>();
@@ -162,14 +166,21 @@ namespace AirtableGH
             {
                 // Error reporting
                 errorMessageString = response.AirtableApiError.DetailedErrorMessage2;
-                
+
             }
             else
             {
                 // Do something with the retrieved 'record'
+                errorMessageString = "Success!";
                 OutRecord = response.Record;
+
             }
-           
+
+            if (response.Success == true)
+            {
+                errorMessageString = "Success!";
+            }
+
         }
 
         protected override System.Drawing.Bitmap Icon => Properties.Resources.AirtableCreate2;

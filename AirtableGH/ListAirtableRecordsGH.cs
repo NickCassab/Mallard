@@ -26,18 +26,17 @@ namespace AirtableGH
 
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddBooleanParameter("Refresh?", "S", "Boolean Button to Refresh Solution", GH_ParamAccess.item);
-            pManager.AddTextParameter("BaseID", "I", "ID of Airtable Base", GH_ParamAccess.item);
-            pManager.AddTextParameter("AppKey", "K", "Appkey for Airtable Base", GH_ParamAccess.item);
-            pManager.AddTextParameter("TableName", "N", "Name of Table in Airtable Base", GH_ParamAccess.item);
+            pManager.AddBooleanParameter("Refresh?", "B", "Boolean button to refresh solution", GH_ParamAccess.item);
+            pManager.AddTextParameter("Base ID", "ID", "ID of Airtable Base", GH_ParamAccess.item);
+            pManager.AddTextParameter("App Key", "K", "App Key for Airtable Base", GH_ParamAccess.item);
+            pManager.AddTextParameter("Table Name", "T", "Name of table in Airtable Base", GH_ParamAccess.item);
             //pManager.AddTextParameter("RecordID", "R", "ID of Record to retrieve", GH_ParamAccess.item);
         }
 
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddTextParameter("Reverse", "R", "Reversed string", GH_ParamAccess.item);
-            pManager.AddTextParameter("errorMessage", "E", "ErrorMessage string", GH_ParamAccess.item);
-            pManager.AddGenericParameter("outRecords", "O", "OutRecord Result string", GH_ParamAccess.list);
+            pManager.AddTextParameter("Error Message", "E", "Error Message string", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Out Records", "O", "Out Record Result string", GH_ParamAccess.list);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -81,15 +80,14 @@ namespace AirtableGH
             if (response != null) {
                 if(response.Records != null) {
                     records.AddRange(response.Records.ToList());
-                    errorMessageString = "success!";
+                    errorMessageString = "Success!";
                 }           
             }
             //
 
             // Use the DA object to assign a new String to the first output parameter.
-            DA.SetData(0, "Ran");
-            DA.SetData(1, errorMessageString);
-            DA.SetDataList(2, records);
+            DA.SetData(0, errorMessageString);
+            DA.SetDataList(1, records);
 
 
         }
@@ -99,7 +97,7 @@ namespace AirtableGH
         public string appKey = "";  
         public string tablename = ""; 
         public string stringID = ""; 
-        public string errorMessageString = "no response yet, refresh to try again";
+        public string errorMessageString = "No response yet, refresh to try again";
         public string attachmentFieldName = "Name";
         public List<Object> records = new List<object>();
         public string offset = null;
@@ -133,7 +131,7 @@ namespace AirtableGH
             if (response.AirtableApiError.ErrorMessage != null)
             {
                 // Error reporting
-                errorMessageString = response.AirtableApiError.ErrorMessage;
+                errorMessageString = response.AirtableApiError.DetailedErrorMessage2;
             }
             else
             {

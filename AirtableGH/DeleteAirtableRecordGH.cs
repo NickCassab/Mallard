@@ -27,24 +27,24 @@ namespace AirtableGH
 
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddBooleanParameter("Refresh?", "S", "Boolean Button to Refresh Solution", GH_ParamAccess.item);
-            pManager.AddTextParameter("BaseID", "I", "ID of Airtable Base", GH_ParamAccess.item);
-            pManager.AddTextParameter("AppKey", "K", "Appkey for Airtable Base", GH_ParamAccess.item);
-            pManager.AddTextParameter("TableName", "N", "Name of Table in Airtable Base", GH_ParamAccess.item);
-            pManager.AddGenericParameter("RecordID", "R", "ID of Record to Delete", GH_ParamAccess.list);
+            pManager.AddBooleanParameter("Refresh?", "B", "Boolean button to refresh solution", GH_ParamAccess.item);
+            pManager.AddTextParameter("Base ID", "ID", "ID of Airtable Base", GH_ParamAccess.item);
+            pManager.AddTextParameter("App Key", "K", "App Key for Airtable Base", GH_ParamAccess.item);
+            pManager.AddTextParameter("Table Name", "T", "Name of table in Airtable Base", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Record ID", "R", "ID of Record to delete", GH_ParamAccess.list);
         }
 
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddTextParameter("Reverse", "R", "Reversed string", GH_ParamAccess.item);
-            pManager.AddTextParameter("errorMessage", "E", "ErrorMessage string", GH_ParamAccess.item);
-            pManager.AddGenericParameter("outRecord", "O", "OutRecord Result string", GH_ParamAccess.list);
+            pManager.AddTextParameter("Error Message", "E", "Error Message string", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Out Record", "O", "Out Record Result string", GH_ParamAccess.list);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             // Declare a variable for the input String
             bool data = false;
+            stringIDs.Clear();
             //string baseID = null;
             //string appKey = null;
             //string tablename = null;
@@ -100,9 +100,8 @@ namespace AirtableGH
             }
 
             // Use the DA object to assign a new String to the first output parameter.
-            DA.SetData(0, "Ran");
-            DA.SetData(1, d.ToString());
-            DA.SetDataList(2, airtableRecordsIN);
+            DA.SetData(0, errorMessage);
+            DA.SetDataList(1, airtableRecordsIN);
             airtableRecordsIN.Clear();
         }
 
@@ -111,7 +110,7 @@ namespace AirtableGH
         public string appKey = "";
         public string tablename = "";  // People
         public List<String> stringIDs = new List<string>();
-        public string errorMessage = "no error";
+        public string errorMessage = "No response yet, refresh to try again";
         public string attachmentFieldName = "Name";
         public List<AirtableRecord> airtableRecordsIN = new List<AirtableRecord>();
         public AirtableRecord outRecord;
@@ -130,8 +129,17 @@ namespace AirtableGH
                 {
                     Task<AirtableDeleteRecordResponse> task = airtableBase.DeleteRecord(tablename, stringID);
                     response = await task;
+                    if (response.Success)
+                    {
+                        errorMessage = "Success!";
+                    } else
+                    {
+                        errorMessage = response.AirtableApiError.ErrorMessage;
+                    }
+
                 } else
                 {
+                    errorMessage = response.AirtableApiError.DetailedErrorMessage2;
                 }
 
             }

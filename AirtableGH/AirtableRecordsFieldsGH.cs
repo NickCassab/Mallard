@@ -30,16 +30,16 @@ namespace AirtableGH
 
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddBooleanParameter("Refresh?", "S", "Boolean Button to Refresh Solution", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Airtable Records", "R", "Airtable Records from and Airtable Base", GH_ParamAccess.list);
-            pManager.AddTextParameter("FieldName", "F", "Field Name for the Airtable Records", GH_ParamAccess.item);
+            pManager.AddBooleanParameter("Refresh?", "B", "Boolean button to refresh solution", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Records", "R", "Airtable Records from the Airtable Base", GH_ParamAccess.list);
+            pManager.AddTextParameter("Field Name", "F", "Field Name for the Airtable Records", GH_ParamAccess.item);
         }
 
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
             
-            pManager.AddTextParameter("errorMessage", "E", "ErrorMessage string", GH_ParamAccess.item);
-            pManager.AddGenericParameter("outRecords", "O", "OutRecord Result string", GH_ParamAccess.list);
+            pManager.AddTextParameter("Error Message", "E", "Error Message string", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Out Records", "O", "Out Record Result string", GH_ParamAccess.list);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -89,7 +89,7 @@ namespace AirtableGH
         }
 
         // initial variables
-        public string errorMessageString = "No Field of that name found, doublecheck fieldname and try again";
+        public string errorMessageString = "No Field of that name found, double check field name and try again";
         public string fieldName = "Name";  // we start with a default fieldname just incase
 
         public List<Object> fieldsList = new List<object>();
