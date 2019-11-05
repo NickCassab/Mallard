@@ -114,7 +114,6 @@ namespace AirtableGH
         public string attachmentFieldName = "Name";
         public List<AirtableRecord> airtableRecordsIN = new List<AirtableRecord>();
         public AirtableRecord outRecord;
-        //public string stringID;
         public AirtableDeleteRecordResponse response;
         //
 
@@ -143,21 +142,9 @@ namespace AirtableGH
                 }
 
             }
-            //foreach (var task in await Task.WhenAll(tasks))
-            //{
-            //    if (task.Success)
-            //    {
-            //        outRecords.Add(task.Record);
-            //    }
-            //    else
-            //    {
-            //        outRecords.Add(null);
-            //    }
-
-            //}
-
 
             return true;
+
         }
 
         protected override System.Drawing.Bitmap Icon => Properties.Resources.AirtableDelete2;
