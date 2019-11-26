@@ -1,4 +1,4 @@
-# AirtableGH (a.k.a. Duck)
+# AirtableGH (a.k.a. Mallard)
  A Grasshopper Plugin to connect Grasshopper to the easily editable database tool Airtable, based on the CSharp fork of the Airtable API by ngonicholas, please visit his page for more information https://github.com/ngocnicholas/airtable.net
 
 You must compile the airtable.net dll in order to use the project, see below for more info, or see link above.
