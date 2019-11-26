@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Duck")]
+[assembly: AssemblyTitle("Mallard")]
 [assembly: AssemblyDescription("Airtable API Grasshopper connection")]
 [assembly: AssemblyConfiguration("Debug")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Duck")]
+[assembly: AssemblyProduct("Mallard")]
 [assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

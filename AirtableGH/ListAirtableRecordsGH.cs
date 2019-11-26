@@ -12,7 +12,7 @@ namespace AirtableGH
     {
 
         public ListAirtableRecordsGH() : base("List Airtable Records", "List", 
-            "Retrieve a list of Airtable Records from a specific Airtable Base", "Duck", "Database")
+            "Retrieve a list of Airtable Records from a specific Airtable Base", "Mallard", "Database")
         {
 
         }
