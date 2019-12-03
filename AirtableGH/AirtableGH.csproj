@@ -86,6 +86,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Properties\App.config" />
     <None Include="Resources\AirtablePluginIcon2.png" />
   </ItemGroup>
   <ItemGroup>
