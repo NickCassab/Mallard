@@ -1,7 +1,7 @@
-# Mallard (Airtable for Grasshopper3d)
- A Grasshopper Plugin to connect Grasshopper to the easily editable database tool Airtable, based on the CSharp fork of the Airtable API by ngonicholas, please visit his page for more information https://github.com/ngocnicholas/airtable.net
+# Mallard (Airtable for Grasshopper3D)
+ Mallard is a Plug-In for Grasshopper3D that connects it to the easily editable database tool: Airtable. It's based on the CSharp fork of the Airtable API by ngonicholas, please visit his page for more information https://github.com/ngocnicholas/airtable.net
 
-You must compile the airtable.net dll in order to use the project, see below for more info, or see link above.
+You must compile the airtable.net dll in order to contribute to the project, see below for more info, or see link above.
 
 # Instructions:
 
