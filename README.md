@@ -17,6 +17,8 @@ Download Airtable.net c# source files from https://github.com/ngocnicholas/airta
 
 Please refer to this link if you would like to contribute edits to the Master Repo: https://gist.github.com/MarcDiethelm/7303312
 
+Please use the Mallard Rhino Discourse Forum link for communication and questions: https://discourse.mcneel.com/t/airtable-to-grasshopper-using-mallard/92231/22
+
 
 
 # Contributors:
