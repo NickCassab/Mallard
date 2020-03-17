@@ -15,5 +15,5 @@ If you'd like to simply try out the very Alpha version of the Grasshopper plugin
 
 # Contributors:
 
-_cassab : https://nickcassab.com
-Susan Wu : https://www.linkedin.com/in/susannnwu/
+- _cassab : https://nickcassab.com
+- Susan Wu : https://www.linkedin.com/in/susannnwu/
