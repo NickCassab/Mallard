@@ -12,3 +12,8 @@ Download Airtable.net c# source files from https://github.com/ngocnicholas/airta
 # Grasshopper Plugin:
 
 If you'd like to simply try out the very Alpha version of the Grasshopper plugin, copy the AirtableGH.gha file and the SampleLibrary.dll file in the 'bin' folder to your Grasshopper Libraries folder.
+
+# Contributors:
+
+_cassab : https://nickcassab.com
+Susan Wu : https://www.linkedin.com/in/susannnwu/
