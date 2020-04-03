@@ -1,6 +1,9 @@
 # Mallard (Airtable for Grasshopper3D)
  Mallard is a Plug-In for Grasshopper3D that connects it to the easily editable database tool: Airtable (https://airtable.com/). It's based on the C# fork of the Airtable API by ngonicholas, please visit his page for more information https://github.com/ngocnicholas/airtable.net
  
+# How to Use the Plug-In:
+https://66.media.tumblr.com/5dc5190431cb763543f725dcf4a6266b/fa16bbeb27087304-a9/s1280x1920/fd55927b64a8abbbf45299c716719ce54a016d6a.gifv
+ 
 # How to Download the Plug-In:
 
 If you'd like to simply try out the very Alpha version of the Grasshopper3D Plug-In, download the Zip folder of the Mallard Github Repo, unzip the folder, and copy the AirtableGH.gha file and the SampleLibrary.dll file in the 'bin' folder to your Grasshopper3D Libraries folder. Reload Rhino and Grasshopper and go!
