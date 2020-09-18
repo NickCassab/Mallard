@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Types;
 using AirtableApiClient;
+using Newtonsoft.Json;
 
 namespace AirtableGH
 {
@@ -87,14 +88,23 @@ namespace AirtableGH
                     else if (fieldval is GH_ObjectWrapper)
                     {
                         GH_ObjectWrapper wrapper = (GH_ObjectWrapper)fieldval;
-                        AirtableRecord record = (AirtableRecord)wrapper.Value;
+                        if (wrapper.Value is Newtonsoft.Json.Linq.JArray)
+                        {
+                            var attList = JsonConvert.DeserializeObject<List<AirtableAttachment>>(wrapper.Value.ToString());
+                            fields.AddField(fieldNameList[i], attList);
+                        }
+                        else
+                        {
+                            AirtableRecord record = (AirtableRecord)wrapper.Value;
 
-                        string recID = record.Id;
+                            string recID = record.Id;
 
-                        string[] recIDs = new string[1];
-                        recIDs[0] = recID;
+                            string[] recIDs = new string[1];
+                            recIDs[0] = recID;
 
-                        fields.AddField(fieldNameList[i], recIDs);
+                            fields.AddField(fieldNameList[i], recIDs);
+                        }
+                        
 
                         a = false;
                     }
