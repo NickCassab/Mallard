@@ -2,9 +2,9 @@
 using System.Drawing;
 using Grasshopper.Kernel;
 
-namespace AirtableGH
+namespace Mallard
 {
-    public class AirtableInfo : GH_AssemblyInfo
+    public class MallardInfo : GH_AssemblyInfo
     {
         public override string Name
         {
@@ -18,7 +18,7 @@ namespace AirtableGH
             get
             {
                 //Return a 24x24 pixel bitmap to represent this GHA library.
-                return Properties.Resources.AirtablePluginIcon2;
+                return AirtableGH.Properties.Resources.AirtablePluginIcon2;
             }
         }
         public override string Description
@@ -29,7 +29,7 @@ namespace AirtableGH
                 return "This library was written to allow Grasshopper to connect to the easily editable" +
                     "Database website called Airtable. Use Airtable to create a spreadsheet style database" +
                     "and interact with it using the components below. https://airtable.com/" +
-                    "This plug-in is open-source and licensed under the MIT License https://github.com/cassab/AirtableGH ";
+                    "This plug-in is open-source and licensed under the MIT License https://github.com/NickCassab/Mallard ";
             }
         }
         public override Guid Id

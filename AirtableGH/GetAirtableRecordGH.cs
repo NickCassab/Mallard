@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Grasshopper.Kernel;
 using AirtableApiClient;
 
-namespace AirtableGH
+namespace Mallard
 {
     public class GetAirtableRecordGH : GH_Component
     {
@@ -127,7 +127,7 @@ namespace AirtableGH
             return response;
         }
 
-        protected override System.Drawing.Bitmap Icon => Properties.Resources.AirtableGet2;
+        protected override System.Drawing.Bitmap Icon => AirtableGH.Properties.Resources.AirtableGet2;
                        
     }
 }

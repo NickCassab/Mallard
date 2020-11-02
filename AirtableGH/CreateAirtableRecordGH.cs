@@ -8,7 +8,7 @@ using AirtableApiClient;
 using Grasshopper.Kernel.Types;
 using Newtonsoft.Json;
 
-namespace AirtableGH
+namespace Mallard
 {
     public class CreateAirtableRecordGH : GH_Component
     {
@@ -190,7 +190,7 @@ namespace AirtableGH
 
         }
 
-        protected override System.Drawing.Bitmap Icon => Properties.Resources.AirtableCreate2;
+        protected override System.Drawing.Bitmap Icon => AirtableGH.Properties.Resources.AirtableCreate2;
 
     }
 }

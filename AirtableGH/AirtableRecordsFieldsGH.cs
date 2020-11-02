@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Grasshopper.Kernel;
 using AirtableApiClient;
 
-namespace AirtableGH
+namespace Mallard
 {
     public class AirtableRecordFieldsGH : GH_Component
     {
@@ -14,8 +14,7 @@ namespace AirtableGH
 
 
 
-        public AirtableRecordFieldsGH() : base("Airtable Record Fields", "Get the Field Values" +
-            "from a list of Airtable Records for the Supplied Field Name", 
+        public AirtableRecordFieldsGH() : base("Airtable Record Fields", "Fields", 
             "Retrieve a list of Fields of given Airtable Records", "Mallard", "Database")
         {
 
@@ -32,7 +31,7 @@ namespace AirtableGH
         {
             pManager.AddBooleanParameter("Refresh?", "B", "Boolean button to refresh solution", GH_ParamAccess.item);
             pManager.AddGenericParameter("Records", "R", "Airtable Records from the Airtable Base", GH_ParamAccess.list);
-            pManager.AddTextParameter("Field Name", "F", "Field Name for the Airtable Records", GH_ParamAccess.item);
+            pManager.AddTextParameter("Field Name", "FN", "Field Name for the Airtable Records", GH_ParamAccess.item);
         }
 
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
@@ -96,7 +95,7 @@ namespace AirtableGH
         public List<AirtableRecord> records = new List<AirtableRecord>();
 
         //Logo for Component
-        protected override System.Drawing.Bitmap Icon => Properties.Resources.AirtableFields2;
+        protected override System.Drawing.Bitmap Icon => AirtableGH.Properties.Resources.AirtableFields2;
     }
 }
 

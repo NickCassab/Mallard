@@ -7,7 +7,7 @@ using Grasshopper.Kernel;
 using Grasshopper.Kernel.Types;
 using AirtableApiClient;
 
-namespace AirtableGH
+namespace Mallard
 {
     public class ReplaceAirtableRecordGH : GH_Component
     {
@@ -174,7 +174,7 @@ namespace AirtableGH
            
         }
 
-        protected override System.Drawing.Bitmap Icon => Properties.Resources.AirtableReplace2;
+        protected override System.Drawing.Bitmap Icon => AirtableGH.Properties.Resources.AirtableReplace2;
 
     }
 }

@@ -6,13 +6,33 @@ using System.Threading.Tasks;
 using Grasshopper.Kernel;
 using AirtableApiClient;
 
-namespace AirtableGH
+namespace Mallard
 {
     public class ListAirtableRecordsGH : GH_Component
     {
 
+        //
+        public string baseID = "";
+        public string appKey = "";
+        public string tablename = "";
+        public string stringID = "";
+        public string errorMessageString = "No response yet, refresh to try again";
+        public string attachmentFieldName = "Name";
+        public List<Object> records = new List<object>();
+        public string offset = null;
+        public IEnumerable<string> fieldsArray = null;
+        public string filterByFormula = null;
+        public int? maxRecords = null;
+        public int? pageSize = null;
+        public IEnumerable<Sort> sort = null;
+        public string view = "";
+        public int b = 1;
+        public AirtableListRecordsResponse response;
+
+        //
+
         public ListAirtableRecordsGH() : base("List Airtable Records", "List", 
-            "Retrieve a list of Airtable Records from a specific Airtable Base", "Mallard", "Database")
+            "Retrieve a list of Airtable Records from a specific Airtable Base, Currently there's a 100 record max", "Mallard", "Database")
         {
 
         }
@@ -30,6 +50,7 @@ namespace AirtableGH
             pManager.AddTextParameter("Base ID", "ID", "ID of Airtable Base", GH_ParamAccess.item);
             pManager.AddTextParameter("App Key", "K", "App Key for Airtable Base", GH_ParamAccess.item);
             pManager.AddTextParameter("Table Name", "T", "Name of table in Airtable Base", GH_ParamAccess.item);
+            pManager.AddTextParameter("View Name", "V", "Name of View in Airtable Base", GH_ParamAccess.item);
         }
 
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
@@ -51,6 +72,7 @@ namespace AirtableGH
             if (!DA.GetData(1, ref baseID)) { return; }
             if (!DA.GetData(2, ref appKey)) { return; }
             if (!DA.GetData(3, ref tablename)) { return; }
+            if (!DA.GetData(4, ref view)) { return; }
 
             // If the retrieved data is Nothing, we need to abort.
             // We're also going to abort on a zero-length String.
@@ -60,46 +82,50 @@ namespace AirtableGH
             }
 
 
-
             AirtableBase airtableBase = new AirtableBase(appKey, baseID);
-            Task OutResponse = ListRecordsMethodAsync(airtableBase);
+            Task OutResponse = ListRecordsMethodAsync(airtableBase, offset);
             var responseString = OutResponse.ToString();
-            if (response != null) {
-                if(response.Records != null) {
+            if (response != null)
+            {
+                if (response.Records != null)
+                {
                     records.AddRange(response.Records.ToList());
+                    offset = response.Offset;
                     errorMessageString = "Success!";
-                }           
+                }
             }
+
+            //if(offset != null)
+            //{
+            //    int i = 0;
+            //    while(i < 3)
+            //    {
+            //        airtableBase = new AirtableBase(appKey, baseID);
+            //        OutResponse = ListRecordsMethodAsync(airtableBase, offset);
+            //        responseString = OutResponse.ToString();
+            //        if (response != null)
+            //        {
+            //            if (response.Records != null)
+            //            {
+            //                records.AddRange(response.Records.ToList());
+            //                offset = response.Offset;
+            //                errorMessageString = "Success with offset!";
+            //            }
+            //        }
+            //        i++;
+            //    }
+            //}
 
 
             // Use the DA object to assign a new String to the first output parameter.
             DA.SetData(0, errorMessageString);
             DA.SetDataList(1, records);
 
-
         }
 
-        //
-        public string baseID = "";   
-        public string appKey = "";  
-        public string tablename = ""; 
-        public string stringID = ""; 
-        public string errorMessageString = "No response yet, refresh to try again";
-        public string attachmentFieldName = "Name";
-        public List<Object> records = new List<object>();
-        public string offset = null;
-        public IEnumerable<string> fieldsArray = null;
-        public string filterByFormula = null;
-        public int? maxRecords = null;
-        public int? pageSize = null;
-        public IEnumerable<Sort> sort = null;
-        public string view = "Main View";
-        public int b = 1;
-        public AirtableListRecordsResponse response;
 
-        //
 
-        public async Task ListRecordsMethodAsync(AirtableBase airtableBase)
+        public async Task ListRecordsMethodAsync(AirtableBase airtableBase, string offset)
         {
 
             Task<AirtableListRecordsResponse> task = airtableBase.ListRecords(
@@ -127,14 +153,10 @@ namespace AirtableGH
                 
             }
 
-
-
         }
 
 
-
-
-        protected override System.Drawing.Bitmap Icon => Properties.Resources.AirtableList2;
+        protected override System.Drawing.Bitmap Icon => AirtableGH.Properties.Resources.AirtableList2;
 
 
 
