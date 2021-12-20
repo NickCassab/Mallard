@@ -75,10 +75,8 @@ namespace Mallard
                 int i = 0;
                 foreach (var fieldval in fieldList)
                 {
-                    bool a = false;
                     if (fieldval is Grasshopper.Kernel.Types.GH_String)
                     {
-                        a = true;
                         fields.AddField(fieldNameList[i], fieldval.ToString());
 
                     }
@@ -94,7 +92,6 @@ namespace Mallard
 
                         fields.AddField(fieldNameList[i], recIDs);
 
-                        a = false;
                     }
 
 
@@ -164,7 +161,7 @@ namespace Mallard
             if (response.AirtableApiError.ErrorMessage != null)
             {
                 // Error reporting
-                errorMessageString = response.AirtableApiError.DetailedErrorMessage2;
+                errorMessageString = response.AirtableApiError.ErrorMessage;
             }
             else
             {

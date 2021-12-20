@@ -130,7 +130,7 @@ namespace Mallard
 
                 } else
                 {
-                    errorMessage = response.AirtableApiError.DetailedErrorMessage2;
+                    errorMessage = response.AirtableApiError.ErrorMessage;
                 }
 
             }

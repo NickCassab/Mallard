@@ -31,11 +31,24 @@ namespace Mallard
 
         //
 
+
+       //
+       // Use 'offset' and 'pageSize' to specify the records that you want
+       // to retrieve.
+       // Only use a 'do while' loop if you want to get multiple pages
+       // of records.
+       //
+
+       
+
+
         public ListAirtableRecordsGH() : base("List Airtable Records", "List", 
             "Retrieve a list of Airtable Records from a specific Airtable Base, Currently there's a 100 record max", "Mallard", "Database")
         {
 
         }
+
+
 
 
         public override Guid ComponentGuid
@@ -95,62 +108,66 @@ namespace Mallard
                 }
             }
 
-            //if(offset != null)
-            //{
-            //    int i = 0;
-            //    while(i < 3)
-            //    {
-            //        airtableBase = new AirtableBase(appKey, baseID);
-            //        OutResponse = ListRecordsMethodAsync(airtableBase, offset);
-            //        responseString = OutResponse.ToString();
-            //        if (response != null)
-            //        {
-            //            if (response.Records != null)
-            //            {
-            //                records.AddRange(response.Records.ToList());
-            //                offset = response.Offset;
-            //                errorMessageString = "Success with offset!";
-            //            }
-            //        }
-            //        i++;
-            //    }
-            //}
 
 
             // Use the DA object to assign a new String to the first output parameter.
             DA.SetData(0, errorMessageString);
             DA.SetDataList(1, records);
 
-        }
+
+            
+
+            }
+
+
 
 
 
         public async Task ListRecordsMethodAsync(AirtableBase airtableBase, string offset)
         {
 
-            Task<AirtableListRecordsResponse> task = airtableBase.ListRecords(
-                                   tablename,
-                                   offset,
-                                   fieldsArray,
-                                   filterByFormula,
-                                   maxRecords,
-                                   pageSize,
-                                   sort,
-                                   view);
+            do
+            {
+                Task<AirtableListRecordsResponse> task = airtableBase.ListRecords(
+                       tablename,
+                       offset,
+                       fieldsArray,
+                       filterByFormula,
+                       maxRecords,
+                       pageSize,
+                       sort,
+                       view);
 
-            response = await task;
+                AirtableListRecordsResponse response = await task;
 
+                if (response.Success)
+                {
+                    records.AddRange(response.Records.ToList());
+                    offset = response.Offset;
+                }
+                else if (response.AirtableApiError is AirtableApiException)
+                {
+                    errorMessageString = response.AirtableApiError.ErrorMessage;
+                    break;
+                }
+                else
+                {
+                    errorMessageString = "Unknown error";
+                    break;
+                }
+            } while (offset != null);
 
-            if (response.AirtableApiError.ErrorMessage != null)
+            if (!string.IsNullOrEmpty(errorMessageString))
             {
                 // Error reporting
-                errorMessageString = response.AirtableApiError.DetailedErrorMessage2;
+                errorMessageString = response.AirtableApiError.ErrorMessage;
+
             }
             else
             {
                 // Do something with the retrieved 'records' and the 'offset'
                 // for the next page of the record list.
-                
+                errorMessageString = "Success!";
             }
 
         }

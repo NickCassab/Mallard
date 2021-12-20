@@ -114,7 +114,7 @@ namespace Mallard
                 } else
                 {
                     outRecords.Add(null);
-                    errorMessage = response.AirtableApiError.DetailedErrorMessage2;
+                    errorMessage = response.AirtableApiError.ErrorMessage;
                 }           
             }
             return true;
