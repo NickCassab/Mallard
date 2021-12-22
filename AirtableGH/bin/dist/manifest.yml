@@ -1,0 +1,7 @@
+---
+name: Mallard
+version: 1.2.1
+authors:
+- Nicholas Cassab
+description: 'This library was written to allow Grasshopper to connect to the easily editable Database website called Airtable. Use Airtable to create a spreadsheet style databaseand interact with it using the components below. https://airtable.com/ This plug-in is open-source and licensed under the MIT License https://github.com/NickCassab/Mallard '
+url: https://github.com/NickCassab/Mallard
