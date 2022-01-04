@@ -48,6 +48,8 @@ namespace Mallard
             bool data = false;
             fieldNameList.Clear();
             fieldList.Clear();
+            stringID = null;
+            inputRecord = null;
 
             // Use the DA object to retrieve the data inside the first input parameter.
             // If the retieval fails (for example if there is no data) we need to abort.
