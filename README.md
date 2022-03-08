@@ -2,6 +2,7 @@
  Mallard is a Plug-In for Grasshopper3D that connects it to the easily editable database tool: Airtable (https://airtable.com/). It's based on the C# fork of the Airtable API by ngonicholas, please visit his page for more information https://github.com/ngocnicholas/airtable.net
  
 # How to Use the Plug-In:
+https://www.youtube.com/watch?v=9m-nAHvUpMA&t=10s
 ![Mallard Demo](AirtableGH/demo/GetStarted.gif)
  
 # How to Download the Plug-In:
