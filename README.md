@@ -4,6 +4,8 @@
 # How to Use the Plug-In:
 Longer Instructional Video:
 https://www.youtube.com/watch?v=9m-nAHvUpMA&t=10s
+
+
 ![Mallard Demo](AirtableGH/demo/GetStarted.gif)
  
 # How to Download the Plug-In:
