@@ -138,7 +138,9 @@ namespace Mallard
                        sort,
                        view);
 
+                await Task.Delay(300);
                 AirtableListRecordsResponse response = await task;
+
 
                 if (response.Success)
                 {
