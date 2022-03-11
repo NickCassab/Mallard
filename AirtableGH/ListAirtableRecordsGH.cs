@@ -8,7 +8,10 @@ using AirtableApiClient;
 
 namespace Mallard
 {
-    public class ListAirtableRecordsGH : GH_Component
+
+
+
+    public class ListAirtableRecordsGH : GH_TaskCapableComponent<ListAirtableRecordsGH.SolveResults>
     {
 
         //
@@ -16,7 +19,7 @@ namespace Mallard
         public string appKey = "";
         public string tablename = "";
         public string stringID = "";
-        public string errorMessageString = "No response yet, refresh to try again";
+        public string errorMessageString = "Set Refresh Input to 'True'";
         public string attachmentFieldName = "Name";
         public List<Object> records = new List<object>();
         public string offset = null;
@@ -28,6 +31,9 @@ namespace Mallard
         public string view = "";
         public int b = 1;
         public AirtableListRecordsResponse response;
+        public int count = 0;
+        public bool data = false;
+
 
         //
 
@@ -43,7 +49,7 @@ namespace Mallard
 
 
         public ListAirtableRecordsGH() : base("List Airtable Records", "List", 
-            "Retrieve a list of Airtable Records from a specific Airtable Base, Currently there's a 100 record max", "Mallard", "Database")
+            "Retrieve a list of Airtable Records from a specific Airtable Base", "Mallard", "Database")
         {
 
         }
@@ -72,58 +78,77 @@ namespace Mallard
             pManager.AddGenericParameter("Out Records", "O", "Out Record Result string", GH_ParamAccess.list);
         }
 
+        public class SolveResults
+        {
+            public int Value { get; set; }
+        }
+
+        private SolveResults ListRecordsSolve(AirtableBase airtableBase, IGH_DataAccess DA)
+        {
+            SolveResults result = new SolveResults();
+            string offset = "0";
+
+            Task OutResponse = this.ListRecordsMethodAsync(airtableBase, offset, DA);
+
+
+            result.Value = 1;
+
+            return result;
+        }
+
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            // Declare a variable for the input String
-            bool data = false;
-
-            // Use the DA object to retrieve the data inside the first input parameter.
-            // If the retieval fails (for example if there is no data) we need to abort.
-            if (!DA.GetData(0, ref data)) {
-                records.Clear();
-                return; }
-            if (!DA.GetData(1, ref baseID)) { return; }
-            if (!DA.GetData(2, ref appKey)) { return; }
-            if (!DA.GetData(3, ref tablename)) { return; }
-            if (!DA.GetData(4, ref view)) { return; }
-
-            // If the retrieved data is Nothing, we need to abort.
-            // We're also going to abort on a zero-length String.
-            if (data == false) {
-                records.Clear();
-                return;
-            }
 
 
-            AirtableBase airtableBase = new AirtableBase(appKey, baseID);
-            Task OutResponse = ListRecordsMethodAsync(airtableBase, offset);
-            var responseString = OutResponse.ToString();
-            if (response != null)
+            if (InPreSolve)
             {
-                if (response.Records != null)
+                // Declare a variable for the input String
+                if (!DA.GetData(0, ref data)) { return; }
+                if(!data)
                 {
-                    records.AddRange(response.Records.ToList());
-                    offset = response.Offset;
-                    errorMessageString = "Success!";
+                    records.Clear();
                 }
+
+                // Use the DA object to retrieve the data inside the first input parameter.
+                // If the retieval fails (for example if there is no data) we need to abort.
+
+                if (!DA.GetData(1, ref baseID)) { return; }
+                if (!DA.GetData(2, ref appKey)) { return; }
+                if (!DA.GetData(3, ref tablename)) { return; }
+                if (!DA.GetData(4, ref view)) { return; }
+
+                AirtableBase airtableBase = new AirtableBase(appKey, baseID);
+                Task<SolveResults> task = Task.Run(() => ListRecordsSolve(airtableBase, DA), CancelToken);
+                TaskList.Add(task);
+                return;
+
+            }
+
+            if (!GetSolveResults(DA, out SolveResults result))
+            {
+
+
+                if (!DA.GetData(1, ref baseID)) { return; }
+                if (!DA.GetData(2, ref appKey)) { return; }
+                if (!DA.GetData(3, ref tablename)) { return; }
+                if (!DA.GetData(4, ref view)) { return; }
+
+
+            }
+
+            if (result != null)
+            {
+                DA.SetData(0, errorMessageString);
+                DA.SetDataList(1, records);
             }
 
 
 
-            // Use the DA object to assign a new String to the first output parameter.
-            DA.SetData(0, errorMessageString);
-            DA.SetDataList(1, records);
+
+        }
 
 
-            
-
-            }
-
-
-
-
-
-        public async Task ListRecordsMethodAsync(AirtableBase airtableBase, string offset)
+        public async Task ListRecordsMethodAsync(AirtableBase airtableBase, string offset, IGH_DataAccess DA)
         {
 
             do
@@ -138,12 +163,13 @@ namespace Mallard
                        sort,
                        view);
 
-                await Task.Delay(300);
                 AirtableListRecordsResponse response = await task;
-
+                task.Wait();
+                errorMessageString = task.Status.ToString();
 
                 if (response.Success)
                 {
+                    errorMessageString = "Success!";//change Error Message to success here
                     records.AddRange(response.Records.ToList());
                     offset = response.Offset;
                 }
@@ -157,21 +183,11 @@ namespace Mallard
                     errorMessageString = "Unknown error";
                     break;
                 }
+
+
             } while (offset != null);
 
-            if (!string.IsNullOrEmpty(errorMessageString))
-            {
-                // Error reporting
-                errorMessageString = response.AirtableApiError.ErrorMessage;
-
-            }
-            else
-            {
-                // Do something with the retrieved 'records' and the 'offset'
-                // for the next page of the record list.
-                errorMessageString = "Success!";
-            }
-
+           
         }
 
 
