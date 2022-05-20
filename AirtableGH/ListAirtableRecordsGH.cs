@@ -34,19 +34,10 @@ namespace Mallard
         public int count = 0;
         public bool data = false;
 
-
-        //
-
-
-       //
        // Use 'offset' and 'pageSize' to specify the records that you want
        // to retrieve.
        // Only use a 'do while' loop if you want to get multiple pages
        // of records.
-       //
-
-       
-
 
         public ListAirtableRecordsGH() : base("List Airtable Records", "List", 
             "Retrieve a list of Airtable Records from a specific Airtable Base", "Mallard", "Database")
@@ -54,12 +45,8 @@ namespace Mallard
 
         }
 
-
-
-
         public override Guid ComponentGuid
         {
-            // Don't copy this GUID, make a new one
             get { return new Guid("7ed8fe52-af4e-4b9c-92db-58b6728462eb"); }
         }
 
@@ -87,19 +74,13 @@ namespace Mallard
         {
             SolveResults result = new SolveResults();
             string offset = "0";
-
             Task OutResponse = this.ListRecordsMethodAsync(airtableBase, offset, DA);
-
-
             result.Value = 1;
-
             return result;
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-
-
             if (InPreSolve)
             {
                 // Declare a variable for the input String
@@ -121,19 +102,14 @@ namespace Mallard
                 Task<SolveResults> task = Task.Run(() => ListRecordsSolve(airtableBase, DA), CancelToken);
                 TaskList.Add(task);
                 return;
-
             }
 
             if (!GetSolveResults(DA, out SolveResults result))
             {
-
-
                 if (!DA.GetData(1, ref baseID)) { return; }
                 if (!DA.GetData(2, ref appKey)) { return; }
                 if (!DA.GetData(3, ref tablename)) { return; }
                 if (!DA.GetData(4, ref view)) { return; }
-
-
             }
 
             if (result != null)
@@ -141,16 +117,12 @@ namespace Mallard
                 DA.SetData(0, errorMessageString);
                 DA.SetDataList(1, records);
             }
-
-
-
-
         }
 
 
+        //async method for listing records
         public async Task ListRecordsMethodAsync(AirtableBase airtableBase, string offset, IGH_DataAccess DA)
         {
-
             do
             {
                 Task<AirtableListRecordsResponse> task = airtableBase.ListRecords(
@@ -190,13 +162,8 @@ namespace Mallard
            
         }
 
-
+        // component icon
         protected override System.Drawing.Bitmap Icon => AirtableGH.Properties.Resources.AirtableList2;
-
-
-
-
-
     }
 }
 
